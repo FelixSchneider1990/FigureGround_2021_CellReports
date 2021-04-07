@@ -1,8 +1,8 @@
-%%% FIGURE_GROUND EPHYS PAPER %%%
+% FIGURE_GROUND EPHYS PAPER %%%
 %%% FELIX SCHNEIDER, 02/2020 %%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% FIG 4 %%%%%%%%%%%%%%%%%%%%%%%
+%%% FIG 3 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
@@ -1003,8 +1003,8 @@ for iAn = 1:2
     end
 end
 
-of 	= .05;
-ax0	= axes('Position',[0 0 1 1],'Visible','off');
+of      = .05;
+ax0     = axes('Position',[0 0 1 1],'Visible','off');
 text(clm(1)-of,.98, 'a', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(2)-of,.98, 'b', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(3)-of,.98, 'c', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
@@ -1021,7 +1021,7 @@ text(.035,row(6)+.09, 'ANT', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k','R
 text(.035,row(8)+.09, 'POS', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k','Rotation',90)
 text(.02,row(7)+.09, 'M2', 'Parent', ax0, 'FontSize', txtsz+6, 'Color', 'k', 'FontWeight', 'bold','Rotation',90)
 
-of  = .015;
+of      = .015;
 text(clm(1)+of, .985, 'Figure vs Control', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(2)+of, .985, 'Coherence8 vs Coherence12', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(3)+of, .985, 'Hit vs Miss', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
@@ -1153,12 +1153,12 @@ for iAn = 1:2
 %         testDist(vec1,vec2,  maxV+(1.6*Yof), maxV+(1.95*Yof), axD.XLim(2)/50)
         
         if iAn == 2 && iFi == 2
-            axO.XAxis.Visible   = 'off';
-            axD.XTick           = [0 .25 .5 .75 1];
-            axD.XLabel.String   = 'AUROC';
+            axO.XAxis.Visible = 'off';
+            axD.XTick = [0 .25 .5 .75 1];
+            axD.XLabel.String = 'AUROC';
         else
-            axO.XAxis.Visible   = 'off';
-            axD.XAxis.Visible   = 'off';
+            axO.XAxis.Visible = 'off';
+            axD.XAxis.Visible = 'off';
         end    
         
         %%% COLUMN 2: Coherence
@@ -1207,12 +1207,12 @@ for iAn = 1:2
 %         testDist(vec1,vec2,  maxV+(1.6*Yof), maxV+(1.95*Yof), axD.XLim(2)/50)
         
         if iAn == 2 && iFi == 2
-            axO.XAxis.Visible   = 'off';
-            axD.XTick           = [0 .25 .5 .75 1];
-            axD.XLabel.String   = 'AUROC';
+            axO.XAxis.Visible = 'off';
+            axD.XTick = [0 .25 .5 .75 1];
+            axD.XLabel.String = 'AUROC';
         else
-            axO.XAxis.Visible   = 'off';
-            axD.XAxis.Visible   = 'off';
+            axO.XAxis.Visible = 'off';
+            axD.XAxis.Visible = 'off';
         end
         
         %%% COLUMN 3: HI vs MI
@@ -1262,12 +1262,12 @@ for iAn = 1:2
 %         testDist(vec1,vec2,  maxV+(1.6*Yof), maxV+(1.95*Yof), axD.XLim(2)/50)
         
         if iAn == 2
-            axO.XAxis.Visible   = 'off';
-            axD.XTick           = [0 .25 .5 .75 1];
-            axD.XLabel.String   = 'AUROC';
+            axO.XAxis.Visible = 'off';
+            axD.XTick = [0 .25 .5 .75 1];
+            axD.XLabel.String = 'AUROC';
         else
-            axO.XAxis.Visible   = 'off';
-            axD.XAxis.Visible   = 'off';
+            axO.XAxis.Visible = 'off';
+            axD.XAxis.Visible = 'off';
         end
         
         %%% COLUMN 4: MI vs CR
@@ -1316,16 +1316,16 @@ for iAn = 1:2
 %         testDist(vec1,vec2,  maxV+(1.6*Yof), maxV+(1.95*Yof), axD.XLim(2)/50)
         
         if iAn == 2
-            axO.XAxis.Visible   = 'off';
-            axD.XTick           = [0 .25 .5 .75 1];
-            axD.XLabel.String   = 'AUROC';
+            axO.XAxis.Visible = 'off';
+            axD.XTick = [0 .25 .5 .75 1];
+            axD.XLabel.String = 'AUROC';
         else
-            axO.XAxis.Visible   = 'off';
-            axD.XAxis.Visible   = 'off';
+            axO.XAxis.Visible = 'off';
+            axD.XAxis.Visible = 'off';
         end
 end
 
-of  = .05;
+of = .05;
 ax0 = axes('Position',[0 0 1 1],'Visible','off');
 text(clm(1)-of,.99, 'a', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(2)-of,.99, 'b', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
@@ -1335,7 +1335,7 @@ text(clm(4)-of,.99, 'd', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeigh
 text(.02,row(2)+.2, 'M1', 'Parent', ax0, 'FontSize', 20, 'Color', 'k', 'FontWeight', 'bold','Rotation',90)
 text(.02,row(4)+.2, 'M2', 'Parent', ax0, 'FontSize', 20, 'Color', 'k', 'FontWeight', 'bold','Rotation',90)
 
-of  = .015;
+of = .015;
 text(clm(1)+of, .985, 'Figure vs Control', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(2)+of, .985, 'Coherence8 vs Coherence12', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(3)+of, .985, 'Hit vs Miss', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')

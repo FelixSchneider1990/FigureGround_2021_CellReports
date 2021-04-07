@@ -1,12 +1,11 @@
-%%% FIGURE_GROUND EPHYS PAPER %%%
+% FIGURE_GROUND EPHYS PAPER %%%
 %%% FELIX SCHNEIDER, 02/2020 %%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% SFIG 2 %%%%%%%%%%%%%%%%%%%%%%
+%%% SFIG 2 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
-% load('/Volumes/Felix_ExtDrive/Rec/Dollar/2019-07-03_11-01-30/Data/DataStruct_2019-07-03.mat')
+% load('Y:\EPHYS\RAWDATA\NHP\Neuralynx\FigureGround\Dollar\2019-07-03_11-01-30\Data\DataStruct_2019-07-03.mat')
 % chan                = 'ch20';
 clus                = 'clus2';
 % data.(chan).Spks    = getSpikesSU(data, '20');           % Import spike file
@@ -38,8 +37,8 @@ maxVLFP         = 400;
 row             = linspace(.09,.72, 4);
 freq            = [25 50 75 100];
 fs              = 44100;
-dur             = 0.2;                                                      % [s]
-width           = .0002;                                                    % [s]
+dur             = 0.2; % [s]
+width           = .0002; % [s]
 pool            = [];
 Fs              = 1000;                                                  	% Sampling frequency
 T               = 1/Fs;                                                    	% Sampling period
@@ -60,9 +59,9 @@ for iFreq = 1:dim(2)
     spkT(ex)    = [];
     
     for iTr = 1:length(spkT)
-        [x,y]           = computeRaster(spkT{iTr}',iTr+cc);
-        p1              = plot(x,y,'Color','k', 'Parent', axR);
-        pool            = [pool;spkT{iTr}];
+        [x,y]   = computeRaster(spkT{iTr}',iTr+cc);
+        plot(x,y,'Color','k', 'Parent', axR);
+        pool    = [pool;spkT{iTr}];
         
         y               = fft(clkLFP{iFreq}(iTr,201:400));                	% One-sided fast Fourier transform for signal and BL
         P2              = abs(y/L);
@@ -88,15 +87,16 @@ for iFreq = 1:dim(2)
         axR.YAxis.Visible   = 'off';
     end
     
-    ax                      = axes('Position',[row(iFreq) .355 .2 .4]);
-    fi                      = fill([201 201 400 400],[0 50 50 0], [.8 .8 .8], 'LineStyle','none'); hold on
-    ax.XLim                 = [1 500];
-    ax.YLim                 = [0 50];
-    ax.YTick                = [0 12 24 36 48];
-    ax.YTickLabel           = {'0' num2str((12/60)*500) num2str((24/60)*500) num2str((36/60)*500) num2str((48/60)*500)};
-    hh                      = histogram(pool, 250);
-    hh.FaceColor            = [0 0 0];
-    hh.FaceAlpha            = 1;
+    ax              = axes('Position',[row(iFreq) .355 .2 .4]);
+    fi              = fill([201 201 400 400],[0 50 50 0], [.8 .8 .8], 'LineStyle','none');
+    hold on
+    ax.XLim         = [1 500];
+    ax.YLim         = [0 50];
+    ax.YTick        = [0 12 24 36 48];
+    ax.YTickLabel   = {'0' num2str((12/60)*500) num2str((24/60)*500) num2str((36/60)*500) num2str((48/60)*500)};
+    hh              = histogram(pool, 250);
+    hh.FaceColor    = [0 0 0];
+    hh.FaceAlpha    = 1;
     
     if iFreq == 1
         ax.XColor           = [0 0 0];
@@ -113,8 +113,8 @@ for iFreq = 1:dim(2)
     end
     
     yyaxis right
-    fp                      = nanmean(clkLFP{iFreq});
-    p1                      = plot(fp, 'LineWidth', 2, 'Color', cm(1,:), 'Parent', ax);
+    fp  = nanmean(clkLFP{iFreq});
+    plot(fp, 'LineWidth', 2, 'Color', cm(1,:), 'Parent', ax)
     if iFreq == 4
         ax.YColor           = cm(1,:);
         ax.FontSize         = 14;
@@ -127,20 +127,21 @@ for iFreq = 1:dim(2)
     end
     
     if iFreq== 4
-        of                  = 15;
+        of = 15;
     else
-        of                  = 25;
+        of = 25;
     end
     text(row(iFreq)+of,350, [num2str(round(freq(iFreq))) ' Hz'],'FontSize', 16, 'Color', [.5 .5 .5])
     
-    axF                     = axes('Position',[row(iFreq) .08 .2 .2]);
-    m                       = nanmean(fftBL);                                  	% Determine threshold
-    s                       = nanstd(fftBL);
-    thresh                  = m + s*2;
-    avg                     = nanmean(fftSig);
-    nV                      = max(max(avg), max(thresh));
-    p1                      = plot(frq,avg./nV, 'LineWidth', 2, 'Color', cm(1,:), 'Parent', axF); hold on
-    p2                      = plot(frq,thresh./nV, 'LineWidth', 2, 'Color', 'k', 'Parent', axF);
+    axF                 = axes('Position',[row(iFreq) .08 .2 .2]);
+    m                   = nanmean(fftBL);                                  	% Determine threshold
+    s                   = nanstd(fftBL);
+    thresh              = m + s*2;
+    avg                 = nanmean(fftSig);
+    nV                  = max(max(avg), max(thresh));
+    plot(frq,avg./nV, 'LineWidth', 2, 'Color', cm(1,:), 'Parent', axF)
+    hold on
+    plot(frq,thresh./nV, 'LineWidth', 2, 'Color', 'k', 'Parent', axF)
     
     if iFreq == 1
         axF.XColor          = [0 0 0];
@@ -169,9 +170,10 @@ end
 text(0.01,.98, 'a', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(0.01,.31, 'b', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 
-addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
+addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-8b0ba13
 dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
 export_fig([dest_dir 'SFIG2'], '-r400',f);
+% exportgraphics(f,[dest_dir 'SFIG2.pdf'],'ContentType','vector','Resolution',300)
 
 set(f,'Units','Inches');
 pos = get(f,'Position');

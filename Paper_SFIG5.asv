@@ -160,7 +160,7 @@ ax4.YAxis(2).Color  = 'r';
 cb2                 = colorbar(ax1);
 cb2.Label.String    = 'MUA [norm]';
 cb2.FontSize        = 12;
-% cb2.Ticks         = [0 .25 .5 .75 1];
+% cb2.Ticks        = [0 .25 .5 .75 1];
 cb2.Position(1)     = .15;
 cb2.Position(4)     = cb2.Position(4)/2;
 cb2.Position(2)     = .15;
@@ -173,16 +173,17 @@ cb3.Position(1)     = .25;
 cb3.Position(4)     = cb3.Position(4)/2;
 cb3.Position(2)     = .15;
 
-ax0                 = axes('Position',[0 0 1 1],'Visible','off');
+ax0 = axes('Position',[0 0 1 1],'Visible','off');
 text(0.01,.97, 'a', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(0.01,.67, 'b', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 % text(.47,.36, 'c', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 
 addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
 dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
-export_fig([dest_dir 'SFIG5'], '-r400',f);
+export_fig([dest_dir 'SFIG_BRcontrol'], '-r400',f);
+% exportgraphics(f,[dest_dir 'SFIG_BRcontrol.pdf'],'ContentType','vector','Resolution',300)
 
 set(f,'Units','Inches');
 pos = get(f,'Position');
 set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
-print(f, [dest_dir 'SFIG5'], '-dpdf', '-r400'); 
+print(f, [dest_dir 'SFIG_BRcontrol'], '-dpdf', '-r400'); 

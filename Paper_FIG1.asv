@@ -6,7 +6,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
-clearvars -except muaeE muaeD
 
 % Load data
 % load('/Volumes/Felix_ExtDrive/Rec/Eric/Summary/muae.mat')
@@ -538,7 +537,7 @@ cb.Ticks            = [15 48 80];
 cb.TickLabels       = {'15' '48' '>80'};
 
 
-offset              = 0.03;
+offset = 0.03;
 text(0,.98, 'a', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(row(2)-offset,.98, 'b', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(row(3)-offset,.98, 'c', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
@@ -553,5 +552,6 @@ text(row(3)+.06,.54, 'Tonotopy', 'Parent', ax0, 'FontSize', 14, 'Color', 'k', 'F
 text(row(4)+.05,.54, 'Peak Latency', 'Parent', ax0, 'FontSize', 14, 'Color', 'k', 'FontWeight', 'bold')
 text(row(5)+.06,.32, 'Phase Locking', 'Parent', ax0, 'FontSize', 14, 'Color', 'k', 'FontWeight', 'bold')
 
+% addpath X:\Felix\Scripts\Stuff\export_fig-master
 % addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-8b0ba13
 % export_fig([dest_dir 'FIG1'], '-r400',f);

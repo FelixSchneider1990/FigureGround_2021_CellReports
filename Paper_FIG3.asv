@@ -14,7 +14,6 @@ clearvars -except muaeE muaeD
 % muaeD = muae;
 % clear muae
 
-%%% FIGURE vs CONTROL %%%
 dest_dir        = '/Users/fschneider/ownCloud/NCL_revision/Figures/raw/';
 Fs              = 1000;                                                  	% Sampling frequency
 T               = 1/Fs;                                                    	% Sampling period
@@ -114,7 +113,7 @@ for iAn = 1:2
     SIG{iAn}            = sig;
 end
 
-%% PLOT %%%
+%% PLOT FIG2 %%%
 close all
 f                       = figure('Units', 'normalized', 'Position', [0 0 .6 1]); set(gcf,'color', [1 1 1]);
 ax0                     = axes('Position',[0 0 1 1],'Visible','off');
@@ -134,10 +133,7 @@ end
 frex                    = round(PT);
     
 for iAn = 1:2
-    par                 = []; 
-    mfr_mat             = [];
-    mlat_mat            = []; 
-    cc                  = 0;
+    par = []; mfr_mat = []; mlat_mat = []; cc = 0;
     
     if iAn == 1
         animalID        = 'Eric';
@@ -373,15 +369,13 @@ for k = 1:2
     axI2.FontSize       = 12;
 end
 
-%% Get coherence/field data
+%% Get data
 
 clearvars -except muaeE muaeD lfpE lfpD indxR indx typ dest_dir alph rows f
 
 for iAn = 1:2
     
-    ant             = []; 
-    pos             = []; 
-    muae            = [];
+    ant = []; pos = []; muae = [];
     
     if iAn == 1
         animalID    = 'Eric';
@@ -484,7 +478,7 @@ pC                              = fdr(pC);
 p8                              = fdr(p8);
 p12                             = fdr(p12);
 
-%% PLOT %%%
+%% PLOT ANT vs POS %%%
 
 lw                      = 1.5;
 col                     = [0 0 0; 0 .9 0; .9 0 0];
@@ -660,3 +654,4 @@ set(f,'Units','Inches');
 pos = get(f,'Position');
 set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
 print(f, [dest_dir 'FIG3'], '-dpdf', '-r400'); 
+

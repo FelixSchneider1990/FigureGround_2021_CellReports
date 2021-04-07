@@ -84,7 +84,8 @@ for iAn = 1:2
                 latency12(c,:)  = d{ii}.sigT12;
                 mFIG(c,:)   	= nanmean([d{ii}.res.HI8; d{ii}.res.HI12] ./mBL);           % Figure stimuli
                 mCTR(c,:)    	= nanmean(d{ii}.res.CR ./mBL);                              % Control stimuli
-                diff(c)         = nanmean(mFIG(c,indxR) - nanmean(mCTR(c,indxR)));
+%                 diff(c)         = nanmean(mFIG(c,indxR) - nanmean(mCTR(c,indxR)));
+                diff(c)         = mean((nanmean([d{ii}.res.HI8; d{ii}.res.HI12] ./mBL) - nanmean(mCTR(c,indxR))) ./ nanstd([[d{ii}.res.HI8; d{ii}.res.HI12] ./mBL; mCTR(c,indxR)]));                  % neural d-prime
                 wd(c)           = d{ii}.Width;
                 
                 if ~isnan(sum(sum(d{ii}.RF)))

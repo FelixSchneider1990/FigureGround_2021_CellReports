@@ -5,10 +5,8 @@
 %%% FIG 2 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
-clearvars -except data muaeE muaeD
-
 % load('/Volumes/Felix_ExtDrive/Rec/Eric/2018-10-09_10-04-30/Data/DataStruct_2018-10-09.mat')
+% cd /Volumes/Felix_ExtDrive/Rec/Eric/2018-10-09_10-04-30
 
 chan        = 'ch2';
 clus        = 'clus1';
@@ -98,12 +96,14 @@ for iSt = 1:length(stID)*.6
         sdFIG               = nanstd(psth);
         semFIG              = sdFIG/(sqrt(size(psth,1)));
         mFR(iSt,1)          = mean(mFIG(401:600));
+%         mFR(iSt,2) = mean(mFIG(401:600));
         
         muae                = (matE(:,fon-199:fon+400) - blE) ./ nVE;
         mFIGe               = nanmean(muae);
         sdFIGe              = nanstd(muae);
         semFIGe             = sdFIGe/(sqrt(size(muae,1)));
         mMUA(iSt,1)      	= mean(mFIGe(401:600));
+%         mMUA(iSt,2) = mean(mFIGe(401:600));
         
         seq                 = [lv lv+of lv+of lv lv lv-of lv-of lv];
         ch                  = [0 5 45 50];
@@ -185,12 +185,14 @@ for iSt = 1:length(stID)*.6
         sdFIG               = nanstd(psth);
         semFIG              = sdFIG/(sqrt(size(psth,1)));
         mFR(iSt,1)         	= mean(mFIG(401:600));
+%         mFR(iSt,2) = mean(mFIG(401:600));
         
         muae                = (matE(:,fon-199:fon+400) - blE) ./ nVE;
         mFIGe               = nanmean(muae);
         sdFIGe              = nanstd(muae);
         semFIGe             = sdFIGe/(sqrt(size(muae,1)));     
         mMUA(iSt,1)         = mean(mFIGe(401:600));
+%         mMUA(iSt,2) = mean(mFIGe(401:600));
         
         ch                  = [0 5 45 50];
         for ic = 1:12
@@ -246,7 +248,7 @@ P1              = P2(1:L/2+1);
 P1(2:end-1)     = 2*P1(2:end-1);
 
 axFFT           = axes('Position',[row(1) .06 .15 .2]); hold on
-p1              = plot(frfft,P1./ max(P1), 'k', 'LineWidth', 2);
+p1              = plot(frfft,P1./ max(P1), 'k', 'LineWidth', 2)
 axFFT.XColor    = [0 0 0];
 axFFT.YColor    = [0 0 0];
 axFFT.XLim      = [0 50];
@@ -261,7 +263,7 @@ box off
 %%% Mean FR in 1st and 2nd window %%%
 cc              = zeros(size(cFR,1),1);
 ff              = ones(size(mFR,1)/2,1);
-axB             = axes('Position',[row(1)+.18 .06 .12 .2]); hold on
+axB             = axes('Position',[row(1)+.18 .07 .12 .2]); hold on
 bx              = boxplot([cFR(:,1); mFR(1:6,1); mFR(7:12,1)], ...
                 [cc; ff+1; ff+2;],...
                 'Colors', cm);
@@ -379,31 +381,31 @@ for i = 1:size(f8,1)
 end
 
 for i = 1:size(f12,1)
-    lf12(i,:)       = polyfit(1:8,f12(i,:),1);
+    lf12(i,:) = polyfit(1:8,f12(i,:),1);
     plot(0:9,polyval(lf12(i,:),0:9),'Color',[.5 .5 .5 .75], 'Marker','none')
 end
 
 for h = 1:8
-sc                  = scatter(zeros(6,1)+h+.1, f12(:,h));
-sc.MarkerFaceColor  = cm(3,:);
-sc.MarkerFaceAlpha  = .5;
-sc.MarkerEdgeColor  = 'none';
+sc = scatter(zeros(6,1)+h+.1, f12(:,h));
+sc.MarkerFaceColor = cm(3,:);
+sc.MarkerFaceAlpha = .5;
+sc.MarkerEdgeColor = 'none';
 end
 
 for h = 1:8
-sc                  = scatter(zeros(6,1)+h-.1, f8(:,h));
-sc.MarkerFaceColor  = cm(2,:);
-sc.MarkerFaceAlpha  = .5;
-sc.MarkerEdgeColor  = 'none';
+sc = scatter(zeros(6,1)+h-.1, f8(:,h));
+sc.MarkerFaceColor = cm(2,:);
+sc.MarkerFaceAlpha = .5;
+sc.MarkerEdgeColor = 'none';
 end
 
-axFE1.FontSize   	= 14;
-axFE1.YTick       	= [5 10 15];
-axFE1.YLim          = [0 15];
-axFE1.XLim          = [0 9];
-axFE1.XTick      	= [1:8];
-axFE1.XColor        = [0 0 0];
-axFE1.YColor        = [0 0 0];
+axFE1.FontSize = 14;
+axFE1.YTick = [5 10 15];
+axFE1.YLim = [0 15];
+axFE1.XLim = [0 9];
+axFE1.XTick = [1:8];
+axFE1.XColor = [0 0 0];
+axFE1.YColor = [0 0 0];
 axFE1.YLabel.String = 'Frequency Elements in RF';
 axFE1.XLabel.String = 'Chords from Figure Onset';
 box off
@@ -414,11 +416,16 @@ text(0.20,.3, 'c', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'b
 text(.48,.3, 'd', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(.74,.3, 'e', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 
-% addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
-% dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
-% export_fig([dest_dir 'FIG2'], '-r400',f);
-% 
-% set(f,'Units','Inches');
-% pos = get(f,'Position');
-% set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
-% print(f, [dest_dir 'FIG2'], '-dpdf', '-r400'); 
+% addpath X:\Felix\Scripts\Stuff\export_fig-master
+% dest_dir = 'X:\Felix\Documents\Publications\FigGnd_Ephys\Figures\';
+% export_fig([dest_dir 'SFIG_SU'], '-r385',f);
+% print([dest_dir 'SFIG_SU'], '-dpng', '-r400')
+
+addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-8b0ba13
+dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
+export_fig([dest_dir 'SFIG_SU'], '-r400',f);
+% % exportgraphics(f,[dest_dir 'SFIG_SU.pdf'],'ContentType','vector','Resolution',300)
+set(f,'Units','Inches');
+pos = get(f,'Position');
+set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+print(f, [dest_dir 'SFIG_SU'], '-dpdf', '-r400'); 
