@@ -8,7 +8,7 @@
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
 clearvars -except data muaeE muaeD
 
-% load('/Volumes/Felix_ExtDrive/Rec/Eric/2018-10-09_10-04-30/Data/DataStruct_2018-10-09.mat')
+% load('PATH/DataStruct_2018-10-09.mat')
 
 chan        = 'ch2';
 clus        = 'clus1';

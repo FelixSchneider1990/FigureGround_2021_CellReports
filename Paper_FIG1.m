@@ -6,14 +6,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
-clearvars -except muaeE muaeD
-
-% Load data
-% load('/Volumes/Felix_ExtDrive/Rec/Eric/Summary/muae.mat')
-% muaeE = muae;
-% load('/Volumes/Felix_ExtDrive/Rec/Dollar/Summary/muae.mat')
-% muaeD = muae;
-% clear muae
 
 % Initialise figure
 f                   = figure('Units', 'normalized', 'Position', [0 0 .8 1]); set(gcf,'color', [1 1 1]);
@@ -24,7 +16,7 @@ clm                 = linspace(.1,.76,4);
 dim                 = [.15 .2];
 
 %%% Plot SFG example stimulus %%%
-load('/Volumes/Felix_ExtDrive/Rec/Dollar/2019-05-20_12-01-40/Data/DataStruct_2019-05-20.mat')
+load('PATH/DataStruct_2019-05-20.mat')
 
 freqMat             = data.stimSpecs.freq_mat;
 axA                 = axes('Position',[row(1) clm(4) dim]); hold on
@@ -89,18 +81,18 @@ axP.Position(3:4)   = [.15 .1];
 
 
 %%% Plot behaviour %%%
-bdir                = '/Volumes/Felix_ExtDrive/Rec/';
-load([bdir 'Eric/Summary/dprime.mat'])
+bdir                = 'PATH/';
+load([bdir 'M1/dprime.mat'])
 dpE                 = dp;
-load([bdir 'Dollar/Summary/dprime.mat'])
+load([bdir 'M2/dprime.mat'])
 dpD                 = dp;
-load([bdir 'Eric/Summary/mRT.mat'])
+load([bdir 'M1/mRT.mat'])
 mRTE                = mRT;
-load([bdir 'Dollar/Summary/mRT.mat'])
+load([bdir 'M2/mRT.mat'])
 mRTD                = mRT;
-load([bdir 'Eric/Summary/RTsd.mat'])
+load([bdir 'M1/RTsd.mat'])
 sdRTE               = RTsd;
-load([bdir 'Dollar/Summary/RTsd.mat'])
+load([bdir 'M2/RTsd.mat'])
 sdRTD               = RTsd;
 
 of                  = 0.009;
@@ -331,20 +323,27 @@ cmap                = flipud(jet(14));
 lcmap               = [linspace(0,1,50)', linspace(0,1,50)', ones(50,1)];
 alp                 = .9;
 back                = [0 0 0];
+typ                 = 'muae';
+
+freqStart               = 180;                                              % Tuning low freq [Hz]
+steps                   = 14;                                               % No of desired tones
+PT(1)                   = freqStart;                                        % Starting frequency [Hz]
+for i = 2:steps                                                           	% For no of tones...
+    PT(i)               =  PT(i-1)*2^(1/2);                              	% 1/2 octave steps
+end
+frex                    = round(PT);
 
 for iAn = 1:2
     
     if iAn == 1
-        animalID    = 'Eric';
+        animalID    = 'M1';
     else
-        animalID    = 'Dollar';
+        animalID    = 'M2';
     end
 
-    load(['/Users/fschneider/ownCloud/NCL_revision/Figures/raw/tMap_' animalID '_' typ '.mat']);
-    load(['/Users/fschneider/ownCloud/NCL_revision/Figures/raw/lMap_' animalID '_' typ  '.mat']);
-    load(['/Users/fschneider/ownCloud/NCL_revision/Figures/raw/ccoord_' animalID '_' typ  '.mat']);
-    load(['/Users/fschneider/ownCloud/NCL_revision/Figures/raw/bf_' animalID '_' typ  '.mat']);
-    load(['/Users/fschneider/ownCloud/NCL_revision/Figures/raw/lat_' animalID '_' typ  '.mat']);
+    load(['PATH/tMap_' animalID '_' typ '.mat']);
+    load(['PATH/lMap_' animalID '_' typ  '.mat']);
+    load(['PATH/ccoord_' animalID '_' typ  '.mat']);
     
     AP            	= find(logical(sum(~isnan(mfr_mat),2)));              	% Boundaries of recording field
     ML              = find(logical(sum(~isnan(mfr_mat))));
@@ -362,11 +361,11 @@ for iAn = 1:2
     end
     
     switch animalID
-        case 'Eric'
+        case 'M1'
             xax  	= [5 10 15];
             yax   	= [-17 -7];
             ytick   = {'+5' '+15'};
-        case 'Dollar'
+        case 'M2'
             xax    	= [5 10 15];
             yax   	= [-15 -6];
             ytick   = {'+4', '+14'};
@@ -412,8 +411,7 @@ for iAn = 1:2
         caxis([15 80])
         
         %%% Phase-lock %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %         load('Y:\EPHYS\RAWDATA\NHP\Neuralynx\FigureGround\Dollar\Summary\muae.mat')
-        %         muaeD = muae; clear muae
+        %         % Load MUA data [M2]        
         %         co = [];
         %         for ii = 1:size(muaeD,2)
         %             if ~isempty(muaeD{ii}.phLock)
@@ -423,12 +421,9 @@ for iAn = 1:2
         %         end
         %         save([dest_dir 'raw\PL_id_' animalID '_' typ  '.mat'], 'pL');
         %         save([dest_dir 'raw\PL_co_' animalID '_' typ  '.mat'], 'co');
-        
-        %         load('X:\Felix\Documents\Publications\FigGnd_Ephys\Figures\raw\PL_co_Dollar_muae.mat')
-        %         load('X:\Felix\Documents\Publications\FigGnd_Ephys\Figures\raw\PL_id_Dollar_muae.mat')
-        
-        load('/Volumes/Felix_ExtDrive/Felix/Documents/Publications/FigGnd_Ephys/Figures/raw/PL_co_Dollar_muae.mat')
-        load('/Volumes/Felix_ExtDrive/Felix/Documents/Publications/FigGnd_Ephys/Figures/raw/PL_id_Dollar_muae.mat')
+
+        load('PATH/PL_co_M2_muae.mat')
+        load('PATH/PL_id_M2_muae.mat')
         
         
         c                   = 1;
@@ -553,5 +548,11 @@ text(row(3)+.06,.54, 'Tonotopy', 'Parent', ax0, 'FontSize', 14, 'Color', 'k', 'F
 text(row(4)+.05,.54, 'Peak Latency', 'Parent', ax0, 'FontSize', 14, 'Color', 'k', 'FontWeight', 'bold')
 text(row(5)+.06,.32, 'Phase Locking', 'Parent', ax0, 'FontSize', 14, 'Color', 'k', 'FontWeight', 'bold')
 
-% addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-8b0ba13
+% addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
+% dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
 % export_fig([dest_dir 'FIG1'], '-r400',f);
+% 
+% set(f,'Units','Inches');
+% pos = get(f,'Position');
+% set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+% print(f, [dest_dir 'FIG1'], '-dpdf', '-r400'); 

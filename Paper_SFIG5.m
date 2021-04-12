@@ -6,9 +6,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clearvars -except muaeE muaeD
-addpath /Users/fschneider/ownCloud/NCL_revision/BR_control
+addpath /Users/fschneider/Documents/GitHub/FigureGround_2021_CellReports/motor
 
-datdir          = dir('/Users/fschneider/ownCloud/NCL_revision/BR_control');
+datdir          = dir('PATH/');
 mua             = [];
 lfp             = [];
 

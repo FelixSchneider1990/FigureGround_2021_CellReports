@@ -8,14 +8,15 @@
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
 clearvars -except muaeE muaeD
 
-% load('/Volumes/Felix_ExtDrive/Rec/Eric/Summary/muae.mat')
+% Load MUA data
+% load('PATH/muae_M1.mat')
 % muaeE = muae;
-% load('/Volumes/Felix_ExtDrive/Rec/Dollar/Summary/muae.mat')
+% load('PATH/muae_M2.mat')
 % muaeD = muae;
 % clear muae
 
 typ             = 'muae';
-dest_dir        = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
+dest_dir        = 'PATH/';
 indx            = 401:600;                          % corresponds to 201-400ms after onset
 indxR           = 201:400;                          % corresponds to -300 - -100ms prior decision (HI) / End of figure (MI)
 alph            = .01;
@@ -38,16 +39,16 @@ for iAn = 1:2
     posM                = [];
     
     if iAn == 1
-        animalID        = 'Eric';
-        load([dest_dir 'raw/tMap_' animalID '_' typ  '.mat']);
+        animalID        = 'M1';
+        load([dest_dir 'maps/tMap_' animalID '_' typ  '.mat']);
         AP              = find(logical(sum(~isnan(mfr_mat),2)));
         ML              = find(logical(sum(~isnan(mfr_mat))));
         [x,y]           = coreBoundary(mfr_mat,AP,ML,false,animalID);
         [antM, posM]    = sortUnits(x,y,muaeE);
         
     elseif iAn == 2
-        animalID        = 'Dollar';
-        load([dest_dir 'raw/tMap_' animalID '_' typ  '.mat']);
+        animalID        = 'M2';
+        load([dest_dir 'maps/tMap_' animalID '_' typ  '.mat']);
         AP              = find(logical(sum(~isnan(mfr_mat),2)));
         ML              = find(logical(sum(~isnan(mfr_mat))));
         [x,y]           = coreBoundary(mfr_mat,AP,ML,false,animalID);
@@ -473,13 +474,13 @@ for iCol = 1:4
     for iAn = 1:2
         
         if iAn == 1
-            animalID = 'Eric';
+            animalID = 'M1';
         else
-            animalID = 'Dollar';
+            animalID = 'M2';
         end
         
         typ         = 'muae';
-        load([dest_dir 'raw/tMap_' animalID '_' typ  '.mat']);
+        load([dest_dir 'maps/tMap_' animalID '_' typ  '.mat']);
         
         AP          = find(logical(sum(~isnan(mfr_mat),2)));                                           % Boundaries of recording field
         ML          = find(logical(sum(~isnan(mfr_mat))));
@@ -497,11 +498,11 @@ for iCol = 1:4
         end
         
         switch animalID
-            case 'Eric'
+            case 'M1'
                 xax         = [5 10 15];
                 yax         = [-17 -7];
                 ytick       = {'+5' '+15'};
-            case 'Dollar'
+            case 'M2'
                 %             xax       = [3 8 13];
                 xax         = [5 10 15];
                 yax         = [-15 -6];
@@ -670,6 +671,7 @@ text(clm(3)+of, .985, 'Hit vs Miss', 'Parent', ax0, 'FontSize', txtsz+2, 'Color'
 text(clm(4)+of, .985, 'Miss vs Correct rejection', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 
 addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
+dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
 export_fig([dest_dir '/FIG4'], '-r400',f);
 
 set(f,'Units','Inches');
@@ -1027,6 +1029,7 @@ text(clm(2)+of, .985, 'Coherence8 vs Coherence12', 'Parent', ax0, 'FontSize', tx
 text(clm(3)+of, .985, 'Hit vs Miss', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(4)+of, .985, 'Miss vs Correct rejection', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 
+dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
 export_fig([dest_dir 'SFIG4'], '-r400',f);
 
 set(f,'Units','Inches');
@@ -1341,6 +1344,7 @@ text(clm(2)+of, .985, 'Coherence8 vs Coherence12', 'Parent', ax0, 'FontSize', tx
 text(clm(3)+of, .985, 'Hit vs Miss', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 text(clm(4)+of, .985, 'Miss vs Correct rejection', 'Parent', ax0, 'FontSize', txtsz+2, 'Color', 'k', 'FontWeight', 'bold')
 
+dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
 export_fig([dest_dir 'SFIG4x'], '-r400',f);
 
 set(f,'Units','Inches');

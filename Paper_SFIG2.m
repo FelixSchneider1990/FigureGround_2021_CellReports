@@ -6,16 +6,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
-% load('/Volumes/Felix_ExtDrive/Rec/Dollar/2019-07-03_11-01-30/Data/DataStruct_2019-07-03.mat')
-% chan                = 'ch20';
-clus                = 'clus2';
-% data.(chan).Spks    = getSpikesSU(data, '20');           % Import spike file
-% tmp                 = data.(chan);
-% tmp.ev              = data.evCodes;
-% tmp.evt             = data.trials.Tun.evt;
-% save('Channel20Data.mat', 'tmp', '-v7.3')
+load('PATH/Channel20Data.mat')
 
-load('/Users/fschneider/ownCloud/NCL_revision/Figures/raw/Channel20Data.mat')
+clus            = 'clus2';
 evt             = tmp.evt;
 ev              = tmp.ev;
 mat             = tmp.Spks.(clus).Tun.CLK.psth;

@@ -8,14 +8,15 @@
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
 clearvars -except muaeE muaeD
 
-% load('/Volumes/Felix_ExtDrive/Rec/Eric/Summary/muae.mat')
+% Load MUA data
+% load('PATH/muae_M1.mat')
 % muaeE = muae;
-% load('/Volumes/Felix_ExtDrive/Rec/Dollar/Summary/muae.mat')
+% load('PATH/muae_M2.mat')
 % muaeD = muae;
 % clear muae
 
 %%% FIGURE vs CONTROL %%%
-dest_dir        = '/Users/fschneider/ownCloud/NCL_revision/Figures/raw/';
+dest_dir        = 'PATH/';
 Fs              = 1000;                                                  	% Sampling frequency
 T               = 1/Fs;                                                    	% Sampling period
 L               = 2250;                                                   	% Length of signal
@@ -140,11 +141,11 @@ for iAn = 1:2
     cc                  = 0;
     
     if iAn == 1
-        animalID        = 'Eric';
+        animalID        = 'M1';
         axC             = axes('Position',[.05 .11 .25 .2]); hold on
         axC.Title.String= 'M1';
     else
-        animalID        = 'Dollar';
+        animalID        = 'M2';
         axC             = axes('Position',[.22 .11 .25 .2]); hold on
         axC.Title.String= 'M2';
     end
@@ -384,9 +385,9 @@ for iAn = 1:2
     muae            = [];
     
     if iAn == 1
-        animalID    = 'Eric';
+        animalID    = 'M1';
     else
-        animalID    = 'Dollar';
+        animalID    = 'M2';
     end
     
     load([dest_dir 'tMap_' animalID '_' typ  '.mat']);
@@ -394,9 +395,9 @@ for iAn = 1:2
     MLmap           = find(logical(sum(~isnan(mfr_mat))));
     [x,y]           = coreBoundary(mfr_mat,APmap,MLmap,false,animalID);
     
-    if strcmp(animalID, 'Eric')
+    if strcmp(animalID, 'M1')
         muae        = muaeE;
-    elseif strcmp(animalID, 'Dollar')
+    elseif strcmp(animalID, 'M2')
         muae        = muaeD;
     end
     
@@ -498,13 +499,13 @@ for iAn = 1:2
     for iFi = 1:2
         
         if iAn == 1
-            animalID    = 'Eric';
+            animalID    = 'M1';
             sigY        = [.4 .4;.475 .475;.55 .55];
             sigX        = [1.1 1.9; 1.1 2.9; 2.1 2.9];
             ofst        = .035;
             Yof         = .035;
         else
-            animalID    = 'Dollar';
+            animalID    = 'M2';
             sigY        = [.27 .27;.32 .32;.37 .37];
             sigX        = [1.1 1.9; 1.1 2.9; 2.1 2.9];
             ofst        = .035;

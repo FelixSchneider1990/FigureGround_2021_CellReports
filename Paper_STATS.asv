@@ -30,20 +30,97 @@ d2      = CVD(1:end-10,3);
 smd = (mean(d2) - mean(d1)) / std([d1;d2])
 [P,H,STATS] = signrank(d1,d2)      
     
+
 %% FIGURE 1: Reaction times - Linear mixed effects model %%
 
-% load('PATH/bRaw_M1.mat')
-% bM1                 = bRaw;
-% load('PATH/bRaw_M2.mat')
-% bM2                 = bRaw;
-% clear bRaw
+subjects{1} = 'M1';
+subjects{2} = 'M2';
+sess        = [];
+id          = [];
+RT          = [];
+coh         = [];
+res         = [];
+c           = 0;
 
-sess                = [];
-id                  = [];
-RT                  = [];
-coh                 = [];
-res                 = [];
-c                   = 0;
+for mID = 1:size(subjects,2)
+    
+    clear allFiles allNames Data
+    monkey  = subjects{mID};
+    pth     = '/Volumes/Felix_ExtDrive/Rec/';   
+    cd([pth monkey])
+    
+    allFiles = dir([pth monkey]); % get all files in directory
+    allNames = {allFiles.name}; % get all file names
+    
+    if mID == 1
+        xof = 5;
+    else
+        xof = 2;
+    end
+        
+    for i = 3:size(allNames,2)-xof    
+        dmat        = [];
+        curr_file   = allNames{i}; % get file name
+        
+        if exist([pth monkey '\' curr_file '\LogFile_' monkey '_' curr_file(1:10) '.csv']) == 2
+            dmat = importdata([pth monkey '\' curr_file '\LogFile_' monkey '_' curr_file(1:10) '.csv']);
+        else
+            continue
+        end
+               
+        % Content(curr_data):
+        % column  1: Hit = 1; Error = 0;
+        % column  2: PreFigEarly = 1; FigEarly = 2; Hit = 3; Late = 4;
+        %            FalseAlarm = 5; CorrRejection = 6
+        % column  3: RT [s]
+        % column  4: Figure onset
+        % column  5: Minimum bar holding time [s]
+        % column  6: Maximum bar holding time [s]
+        % column  7: Figure coherence
+        % column  8: StimNo.
+        
+        if size(dmat,1) > 200
+            c = c+1;
+            
+            if strcmp(monkey, 'M1')
+                mid = 1;
+            else
+                mid = 2;
+            end
+            
+            sess    = vertcat(sess, repmat(c,size(dmat,1),1));
+            id      = vertcat(id, repmat(mid,size(dmat,1),1));            
+            RT      = vertcat(RT, dmat(:,3));
+            res     = vertcat(res, dmat(:,2));
+            coh     = vertcat(coh, dmat(:,7));
+
+        end
+    end
+end
+
+HIidx   = res == 3;
+tbl     = table(RT(HIidx),coh(HIidx),sess(HIidx), id(HIidx), 'VariableNames',{'RT','Coh','Sess','ID'});
+
+% lme = fitlme(tbl, 'RT~Coh + ( Coh | Sess ) + ( Coh | ID)');               % random intercept - repeated measures
+lme1    = fitlme(tbl, 'RT ~1+ ( 1 | Sess ) + ( 1 | ID)');                   % random model
+lme2    = fitlme(tbl, 'RT~Coh + ( 1 | Sess ) + ( 1 | ID)');                 % Coherence as predictor
+stats   = compare(lme1,lme2);
+[~,~,lmeStat] = fixedEffects(lme2);
+
+%%
+
+load('PATH/raw_behaviour_M1')
+bM1         = bRaw;
+load('PATH/raw_behaviour_M2')
+bM2      	= bRaw;
+clear bRaw
+
+sess        = [];
+id          = [];
+RT          = [];
+coh         = [];
+res         = [];
+c           = 0;
 
 for mID = 1:2
     clear arr
@@ -85,6 +162,7 @@ lme1    = fitlme(tbl, 'RT ~1+ ( 1 | Sess ) + ( 1 | ID)');                   % ra
 lme2    = fitlme(tbl, 'RT~Coh + ( 1 | Sess ) + ( 1 | ID)');                 % Coherence as predictor
 stats   = compare(lme1,lme2);
 [~,~,lmeStat] = fixedEffects(lme2);
+
 
 %% FIGURE 3 %%
 

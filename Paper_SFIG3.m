@@ -8,9 +8,10 @@
 addpath /Users/fschneider/Documents/GitHub/FigureGround_Ephys_Analysis
 clearvars -except muaeE muaeD
 
-% load('/Volumes/Felix_ExtDrive/Rec/Eric/Summary/muae.mat')
+% Load MUA data
+% load('PATH/muae_M1.mat')
 % muaeE = muae;
-% load('/Volumes/Felix_ExtDrive/Rec/Dollar/Summary/muae.mat')
+% load('PATH/muae_M2.mat')
 % muaeD = muae;
 % clear muae
 
@@ -20,7 +21,7 @@ F8                  = [];
 F12                 = []; 
 lat8                = []; 
 lat12               = [];
-dest_dir            = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
+dest_dir            = 'PATH/';
 typ                 = 'muae';
 indxR               = 201:400; % corresponds to -300:-100ms to decision
 indx                = 401:600;
@@ -33,19 +34,19 @@ for iAn = 1:2
     muae            = [];
     
     if iAn == 1
-        animalID    = 'Eric';
+        animalID    = 'M1';
     else
-        animalID    = 'Dollar';
+        animalID    = 'M2';
     end
     
-    load([dest_dir 'raw/tMap_' animalID '_' typ  '.mat']);
+    load([dest_dir 'maps/tMap_' animalID '_' typ  '.mat']);
     AP              = find(logical(sum(~isnan(mfr_mat),2)));
     ML              = find(logical(sum(~isnan(mfr_mat))));
     [x,y]           = coreBoundary(mfr_mat,AP,ML,false,animalID);
     
-    if strcmp(animalID, 'Eric')
+    if strcmp(animalID, 'M1')
         muae        = muaeE;
-    elseif strcmp(animalID, 'Dollar')
+    elseif strcmp(animalID, 'M2')
         muae        = muaeD;
     end
     
