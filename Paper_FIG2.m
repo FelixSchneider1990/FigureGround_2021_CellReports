@@ -130,6 +130,7 @@ for iSt = 1:length(stID)*.6
         axF.YAxis(2).Color  = [0 0 0];
 
         axF.YLabel.String   = 'Firing Rate [norm]';
+        axF.YLabel.Position(1) = 635;
         axF.XLim            = [1 600];
         axF.XTick           = [1 200 400 600];
         axF.XTickLabel    	= {- 200 0 200 400};
@@ -338,7 +339,7 @@ ff                  = fit((1:14)', rf', 'smoothingspline', 'SmoothingParam', .95
 hm                  = max(rf) - (diff([min(rf) max(rf)]) / 2);
 axRF                =  axes('Position',[row(1)+.73 .06 .2 .2]); hold on
 % p1 = plot(rf, 'k', 'LineWidth', 2)'
-p1                  = plot(ff(1:14), 'k', 'LineWidth', 2)'
+p1                  = plot(ff(1:14), 'k', 'LineWidth', 2)';
 axRF. XLim          = [1 14];
 axRF.XTick          = [1 7 14];
 axRF.XTickLabel     = {'180', '1440', '16292'};
@@ -414,11 +415,11 @@ text(0.20,.3, 'c', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'b
 text(.48,.3, 'd', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 text(.74,.3, 'e', 'Parent', ax0, 'FontSize', 30, 'Color', 'k', 'FontWeight', 'bold')
 
-% addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
-% dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
-% export_fig([dest_dir 'FIG2'], '-r400',f);
-% 
-% set(f,'Units','Inches');
-% pos = get(f,'Position');
-% set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
-% print(f, [dest_dir 'FIG2'], '-dpdf', '-r400'); 
+addpath /Users/fschneider/Documents/MATLAB/altmany-export_fig-d7671fe
+dest_dir = '/Users/fschneider/ownCloud/NCL_revision/Figures/';
+export_fig([dest_dir 'FIG2'], '-r400',f);
+
+set(f,'Units','Inches');
+pos = get(f,'Position');
+set(f,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+print(f, [dest_dir 'FIG2'], '-dpdf', '-r400'); 

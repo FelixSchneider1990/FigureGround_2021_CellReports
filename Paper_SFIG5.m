@@ -6,7 +6,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clearvars -except muaeE muaeD
-addpath /Users/fschneider/Documents/GitHub/FigureGround_2021_CellReports/motor
 
 datdir          = dir('PATH/');
 mua             = [];
